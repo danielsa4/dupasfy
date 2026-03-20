@@ -1,4 +1,6 @@
 package com.dupas.fy;
+
+import io.github.cdimascio.dotenv.Dotenv;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.model_objects.specification.Track;
@@ -7,10 +9,14 @@ import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 
 public class SpotifyExample {
 
-    private static final String CLIENT_ID = "5b71ee21d52a4c6693153565e6799cb6";
-    private static final String CLIENT_SECRET = "f83d3cbb65594a81b13f4bf17b53bc8f";
+    private static final Dotenv dotenv = Dotenv.load();
+    private static final String CLIENT_ID = dotenv.get("SPOTIFY_CLIENT_ID");
+    private static final String CLIENT_SECRET = dotenv.get("SPOTIFY_CLIENT_SECRET");
 
+    
     public static void main(String[] args) {
+        System.out.println("Client ID: " + CLIENT_ID);
+        System.out.println("Client SECRET: " + CLIENT_SECRET);
         try {
             SpotifyApi spotifyApi = new SpotifyApi.Builder()
                     .setClientId(CLIENT_ID)

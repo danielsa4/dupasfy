@@ -1,5 +1,9 @@
 package com.dupas.fy;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import io.github.cdimascio.dotenv.Dotenv;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
@@ -12,6 +16,20 @@ public class SpotifyExample {
     private static final Dotenv dotenv = Dotenv.load();
     private static final String CLIENT_ID = dotenv.get("SPOTIFY_CLIENT_ID");
     private static final String CLIENT_SECRET = dotenv.get("SPOTIFY_CLIENT_SECRET");
+
+
+    static void createCSV(Track trk, int ind) {
+        String content = ind + ", " + trk.getName() + ".";
+        Path file = Path.of("./output/music.csv"); // The file will be created in the project's root directory
+
+        try {
+            Files.writeString(file, content);
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.err.println("An error occurred: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     
     public static void main(String[] args) {
@@ -40,9 +58,13 @@ public class SpotifyExample {
             System.out.println("Artista: " + track.getArtists()[0].getName());
             System.out.println("Álbum: " + track.getAlbum().getName());
             System.out.println("Duração (ms): " + track.getDurationMs());
+            System.out.println("Duração (ms): " + track.getExternalIds());
+
+            createCSV(track, 1);
 
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }
+
     }
 }

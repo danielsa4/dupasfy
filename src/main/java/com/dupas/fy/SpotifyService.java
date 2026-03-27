@@ -1,0 +1,57 @@
+package com.dupas.fy;
+
+import io.github.cdimascio.dotenv.Dotenv;
+import org.apache.hc.core5.http.ParseException;
+import se.michaelthelin.spotify.SpotifyApi;
+import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
+import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
+import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
+import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
+
+import java.io.IOException;
+
+public class SpotifyService {
+    private static final Dotenv dotenv = Dotenv.load();
+    private static final String CLIENT_ID = dotenv.get("SPOTIFY_CLIENT_ID");
+    private static final String CLIENT_SECRET = dotenv.get("SPOTIFY_CLIENT_SECRET");
+
+    private final SpotifyApi spotifyApi;
+
+    public SpotifyService() {
+        SpotifyApi tempApi = null;
+        try {
+            tempApi = new SpotifyApi.Builder()
+                    .setClientId(CLIENT_ID)
+                    .setClientSecret(CLIENT_SECRET)
+                    .build();
+
+            // Autenticação
+            ClientCredentialsRequest clientCredentialsRequest = tempApi.clientCredentials().build();
+            ClientCredentials clientCredentials = clientCredentialsRequest.execute();
+
+            tempApi.setAccessToken(clientCredentials.getAccessToken());
+        } catch (Exception e) {
+            throw new RuntimeException("Erro", e);
+        }
+        this.spotifyApi = tempApi;
+    }
+
+    public SpotifyApi getApi(){
+        return this.spotifyApi;
+    };
+
+    public Track getTrack(String trackId){
+        try{
+           GetTrackRequest request = spotifyApi.getTrack(trackId).build();
+           return request.execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } catch (SpotifyWebApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+}

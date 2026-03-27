@@ -1,55 +1,42 @@
 package com.dupas.fy;
+import com.dupas.fy.TrackContainer;
+import org.springframework.cglib.core.Local;
+import se.michaelthelin.spotify.model_objects.specification.Track;
 
+import java.time.LocalDate;
+import java.util.List;
 
-public class Album {
-    private String name;
-    private String[] artists;
-    private String[] tags;
-    private String date_of_release;
-	
-	public Album(){}
+public class Album implements TrackContainer {
+    private String albumName;
+    private List<String> artists;
+    private List<String> tags;
+    private LocalDate dateOfRelease;
 
-    public Album(String new_name) {
-	this.name = new_name;		
+    @Override
+    public List<Track> getTracks() {
+        return null;
     }
-    
-    public Album(String new_name, String[] new_artists) {
-        this.name = new_name;
-        this.artists = new_artists;
+
+    @Override
+    public String getTitle() {
+        return "";
     }
-    
-    
-    public String getName() {
-        return name;
+
+    @Override
+    public List<String> getTags(){
+        return null;
     }
-    
-    public void setName(String name) {
-        this.name = name;
+
+    @Override
+    public LocalDate getReleaseDate(){
+        return null;
     }
-   
-    public String[] getArtists() {
-        return artists;
-    }
-    
-    public void setArtists(String[] new_artists) {
-        this.artists = new_artists;
-    }
-    
-    public String[] getTags() {
-        return tags;
-    }
-    
-    public void setTags(String[] tags) {
-        this.tags = tags;
-    }
-   
-    public String getDate_of_release() {
-        return date_of_release;
-    }
-    
-    public void setDate_of_release(String date_of_release) {
-        this.date_of_release = date_of_release;
-    }
+
+    @Override
+    public List<String> getArtists(){
+        return null;
+    };
+
 }
 
 

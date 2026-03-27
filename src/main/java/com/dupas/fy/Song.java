@@ -1,19 +1,26 @@
 package com.dupas.fy;
 
+import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
+
+import com.dupas.fy.Album;
 
 public class Song {
     private String name;
     private Album album;
-    private String[] artists;
+    private ArtistSimplified[] artists;
     private int duration;
-    private int bpm;
     private int popularity;
     private String date_of_stream;
     
-   public Song(){}
-   public Song(String new_name){
-	this.name = new_name;
-   }
+    public Song(Track new_track, Album ab) {
+        this.name = new_track.getName();
+        this.album = ab;
+        this.artists = new_track.getArtists();
+        this.duration = new_track.getDurationMs();
+        this.popularity = new_track.getPopularity();
+        this.date_of_stream = new_track.getAlbum().getReleaseDate();
+    }
 
     public String getName() {
         return name;
@@ -33,11 +40,11 @@ public class Song {
     }
     
    
-    public String[] getArtists() {
+    public ArtistSimplified[] getArtists() {
         return artists;
     }
     
-    public void setArtists(String[] artists) {
+    public void setArtists(ArtistSimplified[] artists) {
         this.artists = artists;
     }
     
@@ -49,16 +56,6 @@ public class Song {
     public void setDuration(int duration) {
         this.duration = duration;
     }
-    
-   
-    public int getBpm() {
-        return bpm;
-    }
-    
-    public void setBpm(int bpm) {
-        this.bpm = bpm;
-    }
-    
    
     public int getPopularity() {
         return popularity;
@@ -68,7 +65,7 @@ public class Song {
         this.popularity = popularity;
     }
     
-       public String getDate_of_stream() {
+    public String getDate_of_stream() {
         return date_of_stream;
     }
     
@@ -76,6 +73,3 @@ public class Song {
         this.date_of_stream = date_of_stream;
     }
 }
-
-
-

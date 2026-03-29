@@ -6,10 +6,15 @@ import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.Album;
+import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
+import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
+import se.michaelthelin.spotify.requests.data.artists.GetArtistRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 
 import java.io.IOException;
+
 
 public class SpotifyService {
     private static final Dotenv dotenv = Dotenv.load();
@@ -44,6 +49,32 @@ public class SpotifyService {
     public Track getTrack(String trackId){
         try{
            GetTrackRequest request = spotifyApi.getTrack(trackId).build();
+           return request.execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } catch (SpotifyWebApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Album getAlbum(String albumId){
+        try{
+           GetAlbumRequest request = spotifyApi.getAlbum(albumId).build();
+           return request.execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } catch (SpotifyWebApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Artist getArtist(String artistId){
+        try{
+           GetArtistRequest request = spotifyApi.getArtist(artistId).build();
            return request.execute();
         } catch (IOException e) {
             throw new RuntimeException(e);

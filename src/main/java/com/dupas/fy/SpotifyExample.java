@@ -2,6 +2,7 @@ package com.dupas.fy;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
+
 public class SpotifyExample {
 
     public static void main(String[] args) {

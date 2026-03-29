@@ -5,21 +5,32 @@ import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 
 import com.dupas.fy.Album;
 
+
 public class Song {
+    private String song_id;
     private String name;
-    private Album album;
+    // private Album album;
     private ArtistSimplified[] artists;
     private int duration;
     private int popularity;
     private String date_of_stream;
     
-    public Song(Track new_track, Album ab) {
+    public Song(Track new_track /*, Album ab*/) {
+        this.song_id = new_track.getId();
         this.name = new_track.getName();
-        this.album = ab;
+        // this.album = ab;
         this.artists = new_track.getArtists();
         this.duration = new_track.getDurationMs();
-        this.popularity = new_track.getPopularity();
+        this.popularity = new_track.getPopularity() != null ? new_track.getPopularity() : 0;
         this.date_of_stream = new_track.getAlbum().getReleaseDate();
+    }
+
+    public String getId() {
+        return song_id;
+    }
+    
+    public void setId(String id) {
+        this.song_id = id;
     }
 
     public String getName() {
@@ -29,15 +40,14 @@ public class Song {
     public void setName(String name) {
         this.name = name;
     }
-    
    
-    public Album getAlbum() {
-        return album;
-    }
+    // public Album getAlbum() {
+    //     return album;
+    // }
     
-    public void setAlbum(Album album) {
-        this.album = album;
-    }
+    // public void setAlbum(Album album) {
+    //     this.album = album;
+    // }
     
    
     public ArtistSimplified[] getArtists() {

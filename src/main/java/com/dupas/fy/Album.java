@@ -6,6 +6,7 @@ import se.michaelthelin.spotify.model_objects.specification.Track;
 import java.time.LocalDate;
 import java.util.List;
 
+
 public class Album implements TrackContainer {
     private String albumName;
     private List<String> artists;

@@ -1,7 +1,9 @@
 package com.dupas.fy;
-import com.dupas.fy.TrackContainer;
-import org.springframework.cglib.core.Local;
+
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import org.springframework.cglib.core.Local;
+
+import com.dupas.fy.TrackContainer;
 
 import java.time.LocalDate;
 import java.util.List;

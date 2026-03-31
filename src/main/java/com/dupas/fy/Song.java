@@ -3,7 +3,7 @@ package com.dupas.fy;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 
-import com.dupas.fy.Album;
+// import com.dupas.fy.Album;
 
 
 public class Song {

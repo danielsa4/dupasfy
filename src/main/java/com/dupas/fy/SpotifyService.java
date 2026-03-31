@@ -8,10 +8,15 @@ import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
+import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
 import se.michaelthelin.spotify.requests.data.artists.GetArtistRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
+import se.michaelthelin.spotify.model_objects.specification.Playlist;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
+import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
+import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
 
 import java.io.IOException;
 
@@ -83,6 +88,41 @@ public class SpotifyService {
         } catch (SpotifyWebApiException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Playlist getPlaylist(String playlistId){
+        try{
+           GetPlaylistRequest request = spotifyApi.getPlaylist(playlistId).build();
+           Playlist playlist = request.execute();
+           return playlist;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } catch (SpotifyWebApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Paging<PlaylistTrack> getPlaylistItems(String playlistId) {
+        try {
+            GetPlaylistsItemsRequest request = spotifyApi
+                    .getPlaylistsItems(playlistId)
+                    .build();
+
+            Paging<PlaylistTrack> paging = request.execute();
+            // printar os itens no console
+            for (PlaylistTrack item : paging.getItems()) {
+                if (item.getTrack() instanceof Track) {
+                    Track track = (Track) item.getTrack();
+                    System.out.println(track.getName());
+                }
+            }
+            return paging;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import se.michaelthelin.spotify.model_objects.specification.Album;
 
 import com.dupas.fy.SpotifyService;
 import com.dupas.fy.Song;
+import com.dupas.fy.User;
 
 
 @SpringBootApplication
@@ -23,7 +23,8 @@ public class FyApplication {
 				System.out.println("1. Search for a song");
 				System.out.println("2. Search for an album");
 				System.out.println("3. Search for an artist");
-				System.out.println("4. Exit");
+				System.out.println("4. Search for an playlist");
+				System.out.println("5. Exit");
 				int option = scanner.nextInt();
 				scanner.nextLine(); // consume the newline
 				SpotifyService service = new SpotifyService();
@@ -55,6 +56,22 @@ public class FyApplication {
 					System.out.println("Name: " + artist.getName());
 
 				} else if (option == 4) {
+					System.out.println("Give the id of a playlist: ");
+					String id_option = scanner.nextLine();
+					System.out.println("Searching for a playlist...");
+					var playlist = service.getPlaylist(id_option);
+					System.out.println("Id: " + playlist.getId());
+					System.out.println("Name: " + playlist.getName());
+
+					// var a = service.getPlaylistItems(id_option);
+
+					// test
+					// System.out.print("Write your account name: ");
+					// String account_name = scanner.nextLine();
+					// User user = new User(account_name);
+					// user.writePlaylistCSV(playlist);
+
+				} else if (option == 5) {
 					System.out.println("Exiting...");
 					break;
 

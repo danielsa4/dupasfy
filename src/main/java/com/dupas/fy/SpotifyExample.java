@@ -1,7 +1,5 @@
 package com.dupas.fy;
 
-import io.github.cdimascio.dotenv.Dotenv;
-
 
 public class SpotifyExample {
 

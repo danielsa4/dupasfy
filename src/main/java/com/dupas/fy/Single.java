@@ -1,9 +1,12 @@
 package com.dupas.fy;
-import com.dupas.fy.TrackContainer;
+
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import com.dupas.fy.TrackContainer;
+
 
 public class Single implements TrackContainer {
     private String singleName;

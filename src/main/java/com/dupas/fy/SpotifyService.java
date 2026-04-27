@@ -1,9 +1,7 @@
 package com.dupas.fy;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.apache.hc.core5.http.ParseException;
 import se.michaelthelin.spotify.SpotifyApi;
-import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.Album;
@@ -18,8 +16,7 @@ import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
 
-import java.io.IOException;
-
+import com.dupas.fy.RequestHandler;
 
 public class SpotifyService {
     private static final Dotenv dotenv = Dotenv.load();
@@ -47,61 +44,32 @@ public class SpotifyService {
         this.spotifyApi = tempApi;
     }
 
-    public SpotifyApi getApi(){
+    public SpotifyApi getApi() {
         return this.spotifyApi;
     };
-
+    
     public Track getTrack(String trackId){
-        try{
-           GetTrackRequest request = spotifyApi.getTrack(trackId).build();
-           return request.execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        } catch (SpotifyWebApiException e) {
-            throw new RuntimeException(e);
-        }
+        RequestHandler<Track> handler = new RequestHandler<>();
+        GetTrackRequest request = spotifyApi.getTrack(trackId).build();
+        return handler.executeSpotifyRequest(request);
     }
 
     public Album getAlbum(String albumId){
-        try{
-           GetAlbumRequest request = spotifyApi.getAlbum(albumId).build();
-           return request.execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        } catch (SpotifyWebApiException e) {
-            throw new RuntimeException(e);
-        }
+        RequestHandler<Album> handler = new RequestHandler<>();
+        GetAlbumRequest request = spotifyApi.getAlbum(albumId).build();
+        return handler.executeSpotifyRequest(request);
     }
 
     public Artist getArtist(String artistId){
-        try{
-           GetArtistRequest request = spotifyApi.getArtist(artistId).build();
-           return request.execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        } catch (SpotifyWebApiException e) {
-            throw new RuntimeException(e);
-        }
+        RequestHandler<Artist> handler = new RequestHandler<>();
+        GetArtistRequest request = spotifyApi.getArtist(artistId).build();
+        return handler.executeSpotifyRequest(request);
     }
 
     public Playlist getPlaylist(String playlistId){
-        try{
-           GetPlaylistRequest request = spotifyApi.getPlaylist(playlistId).build();
-           Playlist playlist = request.execute();
-           return playlist;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        } catch (SpotifyWebApiException e) {
-            throw new RuntimeException(e);
-        }
+        RequestHandler<Playlist> handler = new RequestHandler<>();
+        GetPlaylistRequest request = spotifyApi.getPlaylist(playlistId).build();
+        return handler.executeSpotifyRequest(request);
     }
 
     public Paging<PlaylistTrack> getPlaylistItems(String playlistId) {

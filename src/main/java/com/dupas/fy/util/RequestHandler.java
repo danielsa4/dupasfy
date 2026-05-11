@@ -1,4 +1,4 @@
-package com.dupas.fy;
+package com.dupas.fy.util;
 
 import java.io.IOException;
 

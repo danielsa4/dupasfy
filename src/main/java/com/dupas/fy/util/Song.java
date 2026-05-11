@@ -1,4 +1,4 @@
-package com.dupas.fy;
+package com.dupas.fy.util;
 
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;

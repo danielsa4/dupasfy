@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.dupas.fy.SpotifyService;
-import com.dupas.fy.User;
-import com.dupas.fy.Screen;
+import com.dupas.fy.util.Screen;
+import com.dupas.fy.util.Song;
+import com.dupas.fy.util.SpotifyService;
+import com.dupas.fy.util.User;
 
 
 @SpringBootApplication
@@ -18,11 +19,14 @@ public class FyApplication {
 
 		SpringApplication.run(FyApplication.class, args);
 		Scanner scanner = new Scanner(System.in);
+		User user = new User();
 		Screen screen = new Screen();
 		List<Object> spotifyTemporaryList = new ArrayList<>();
 		
 		try {
+			user.checkLogin();
 			while (true) {
+
 				screen.showOptions();
 				
 				int option = scanner.nextInt();

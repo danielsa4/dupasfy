@@ -1,17 +1,15 @@
-package com.dupas.fy;
+package com.dupas.fy.util;
 
 import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 
-import com.dupas.fy.Song;
-
 public class Screen {
-    Screen() {
+    public Screen() {
         System.out.println("Welcome to Dupasfy!");
     }
 
-    void showOptions() {
+    public void showOptions() {
         System.out.println(" ");
         System.out.println("Options: ");
         System.out.println("1. Search for a song");
@@ -22,7 +20,7 @@ public class Screen {
         System.out.println("6. Exit");
     }
 
-    <T> void showInfo(T spotifyObject) {
+    public <T> void showInfo(T spotifyObject) {
         String line = "================================";
         if (spotifyObject instanceof Song) {
             Song song = (Song) spotifyObject;

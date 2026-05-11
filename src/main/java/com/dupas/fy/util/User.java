@@ -1,4 +1,4 @@
-package com.dupas.fy;
+package com.dupas.fy.util;
 
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
@@ -6,32 +6,41 @@ import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
 
+import org.springframework.web.client.RestClient;
 
+import com.dupas.fy.dto.TokenResponse;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class User {
     private String account;
     private Song[] history;
-    
+    private final RestClient restClient;
   
-    public User(){}
+    public User(){
+        this.restClient = RestClient.create();
+    }
 
     public User(String new_account){
 		this.account = new_account;
+        this.restClient = RestClient.create();
 	}
 
-    public String getAccount() {
-        return account;
-    }
-    
-    public void setAccount(String account) {
-        this.account = account;
-    }
-   
-    public Song[] getHistory() {
-        return history;
-    }
-    
-    public void setHistory(Song[] history) {
-        this.history = history;
+    public void checkLogin() {
+        System.out.println("Checking the login information...");
+
+        boolean response = restClient.get()
+            .uri("http://127.0.0.1:3000/auth/get-is-logged")
+            .retrieve()
+            .body(Boolean.class);
+        if (response) {
+            System.out.println("You're already logged!");
+        } else {
+            System.out.println("You're not logged yet. Clink on the link to authenticate: http://127.0.0.1:8080/");
+        }
     }
 
     public void writePlaylistCSV(Playlist playlist) {

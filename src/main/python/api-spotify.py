@@ -8,13 +8,14 @@ from flask import Flask, session, url_for, redirect, request
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 from spotipy.cache_handler import CacheFileHandler
-
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(64)
 
-client_id = '5b71ee21d52a4c6693153565e6799cb6'
-client_secret = 'f83d3cbb65594a81b13f4bf17b53bc8f'
+load_dotenv()
+client_id = os.getenv("SPOTIFY_CLIENT_ID")
+client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
 redirect_uri = 'http://127.0.0.1:8080/callback'
 scope = 'playlist-read-private'
 
@@ -57,6 +58,20 @@ def get_token():
         "refresh_token": token_info["refresh_token"]
     }
 
+@app.route('/is_logged')
+def is_logged():
+
+    token_info = cache_handler.get_cached_token()
+
+    if sp_oauth.validate_token(token_info) == None: 
+        is_logged = False
+    else:
+        is_logged = True
+
+    return {
+        "logged": is_logged
+    }
+
 @app.route('/get_playlists')
 def get_playlists():
     if not sp_oauth.validate_token(cache_handler.get_cached_token()):
@@ -65,7 +80,8 @@ def get_playlists():
     
     playlists = sp.current_user_playlists()
     playlists_info = [(pl['name'], pl['external_urls']) for pl in playlists['items']]
-    playlists_html ='<br>'.join([f'{name}: {url}' for name, url in playlists_info])
+    playlists_html = '<h1>Bem Vindo ao Dupasfy!</h1><br>'
+    playlists_html +='<br>'.join([f'{name}: {url}' for name, url in playlists_info])
 
     return playlists_html
 

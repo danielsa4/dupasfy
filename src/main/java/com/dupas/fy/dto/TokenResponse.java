@@ -1,4 +1,4 @@
-package com.dupas.fy.util;
+package com.dupas.fy.dto;
 
 import lombok.Getter;
 import lombok.Setter;

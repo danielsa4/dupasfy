@@ -24,7 +24,7 @@ public class FyApplication {
 		List<Object> spotifyTemporaryList = new ArrayList<>();
 		
 		try {
-			user.checkLogin();
+			//user.checkLogin();
 			while (true) {
 
 				screen.showOptions();

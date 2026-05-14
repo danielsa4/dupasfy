@@ -9,16 +9,14 @@ import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 public class Song {
     private String song_id;
     private String name;
-    // private Album album;
     private ArtistSimplified[] artists;
     private int duration;
     private int popularity;
     private String date_of_stream;
     
-    public Song(Track new_track /*, Album ab*/) {
+    public Song(Track new_track) {
         this.song_id = new_track.getId();
         this.name = new_track.getName();
-        // this.album = ab;
         this.artists = new_track.getArtists();
         this.duration = new_track.getDurationMs();
         this.popularity = new_track.getPopularity() != null ? new_track.getPopularity() : 0;
@@ -40,15 +38,6 @@ public class Song {
     public void setName(String name) {
         this.name = name;
     }
-   
-    // public Album getAlbum() {
-    //     return album;
-    // }
-    
-    // public void setAlbum(Album album) {
-    //     this.album = album;
-    // }
-    
    
     public ArtistSimplified[] getArtists() {
         return artists;

@@ -2,6 +2,7 @@ package com.dupas.fy.util;
 
 import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
+import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 
 public class Screen {
@@ -27,7 +28,10 @@ public class Screen {
             System.out.println(line);
             System.out.println("Id: " + song.getId());
             System.out.println("Name: " + song.getName());
-            System.out.println("Artist: " + song.getArtists());
+            ArtistSimplified[] artistas = song.getArtists();
+            for(ArtistSimplified artista : artistas){
+                System.out.println("Artists: " + artista.getName());
+            }
             System.out.println(line);
 
         } else if (spotifyObject instanceof Album) {

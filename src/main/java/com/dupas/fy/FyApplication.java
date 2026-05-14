@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
+import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
+import se.michaelthelin.spotify.model_objects.specification.Recommendations;
+
 import com.dupas.fy.util.Screen;
 import com.dupas.fy.util.Song;
 import com.dupas.fy.util.SpotifyService;
@@ -24,9 +28,9 @@ public class FyApplication {
 		List<Object> spotifyTemporaryList = new ArrayList<>();
 		
 		try {
-			user.checkLogin();
+			user.isAuthServerOn();
 			while (true) {
-
+				if (user.isAuthenticated()) user.checkLogin();
 				screen.showOptions();
 				
 				int option = scanner.nextInt();
@@ -82,6 +86,16 @@ public class FyApplication {
 				} else if (option == 6) {
 					System.out.println("Exiting...");
 					break;
+
+				} else if (option == 7) {
+					System.out.println("Give the id of a track: "); // ex: 01iyCAUm8EvOFqVWYJ3dVX
+					String id_option = scanner.nextLine();
+					System.out.println("Searching for a track...");
+					GetRecommendationsRequest track = service.getApi().getRecommendations()
+						.seed_tracks(id_option)
+						.build();
+					Song searched_song = new Song(track);
+					screen.showInfo(track);
 
 				} else {
 					System.out.println("Invalid option. Please try again.");

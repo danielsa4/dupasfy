@@ -11,10 +11,10 @@ public class PlaylistHandler {
     }
     void delete_song(User current_user, Song remove, Playlist[] remove_from){
 
-        RemoveItemsFromPlaylistRequest.Builder request_builder =(current_user.getAcessToken());
-        request_builder.playlist_id(remove_from[0].getId()); 
-        RemoveItemsFromPlaylistRequest remove_request;
-        remove_request.execute();
+        // RemoveItemsFromPlaylistRequest.Builder request_builder = (current_user.getAccess_token());
+        // request_builder.playlist_id(remove_from[0].getId()); 
+        // RemoveItemsFromPlaylistRequest remove_request;
+        // remove_request.execute();
     }
     // Deleta de todas suas playlists todas as musicas com artista x
     void delete_artist(ArtistSimplified remove){

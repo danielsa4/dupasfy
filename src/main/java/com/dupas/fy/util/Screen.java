@@ -18,7 +18,8 @@ public class Screen {
         System.out.println("3. Search for an artist");
         System.out.println("4. Search for an playlist");
         System.out.println("5. Show searched items");
-        System.out.println("6. Exit");
+        System.out.println("6. Get recommendation");
+        System.out.println("7. Exit");
     }
 
     public <T> void showInfo(T spotifyObject) {

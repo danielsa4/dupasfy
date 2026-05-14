@@ -2,20 +2,22 @@ package com.dupas.fy;
 
 import java.util.Scanner;
 import java.util.List;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.hc.core5.http.ParseException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
+import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.Recommendations;
 
+import com.dupas.fy.util.SpotifyService;
 import com.dupas.fy.util.Screen;
 import com.dupas.fy.util.Song;
-import com.dupas.fy.util.SpotifyService;
 import com.dupas.fy.util.User;
-
 
 @SpringBootApplication
 public class FyApplication {
@@ -30,7 +32,10 @@ public class FyApplication {
 		try {
 			user.isAuthServerOn();
 			while (true) {
-				if (user.isAuthenticated()) user.checkLogin();
+				if (user.isAuthenticated()) {
+					user.checkLogin();
+					user.requestAccessToken();
+				}
 				screen.showOptions();
 				
 				int option = scanner.nextInt();
@@ -84,18 +89,28 @@ public class FyApplication {
 						System.out.println(" ");
 					});
 				} else if (option == 6) {
-					System.out.println("Exiting...");
-					break;
-
-				} else if (option == 7) {
 					System.out.println("Give the id of a track: "); // ex: 01iyCAUm8EvOFqVWYJ3dVX
 					String id_option = scanner.nextLine();
 					System.out.println("Searching for a track...");
+
+					System.out.println(service.getApi().getAccessToken());
+
 					GetRecommendationsRequest track = service.getApi().getRecommendations()
+						.limit(10)
 						.seed_tracks(id_option)
 						.build();
-					Song searched_song = new Song(track);
-					screen.showInfo(track);
+					try {
+						Recommendations recommendations = track.execute();
+						System.out.println(recommendations.getTracks().length);
+					} catch (IOException | ParseException | SpotifyWebApiException e) {
+			            throw new RuntimeException(e);
+					}
+					
+					// Song searched_song = new Song(track);
+					// screen.showInfo(track);
+				} else if (option == 7) {
+					System.out.println("Exiting...");
+					break;
 
 				} else {
 					System.out.println("Invalid option. Please try again.");

@@ -18,6 +18,7 @@ public class SpotifyAuthService {
     }
 
     public TokenResponse getToken() {
+        // System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEE");
         TokenResponse response = restClient.get()
             .uri("http://127.0.0.1:8080/get_token")
             .retrieve()

@@ -17,15 +17,13 @@ import com.dupas.fy.dto.TokenResponse;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.dupas.fy.dto.TokenResponse;
-
 @Getter
 @Setter
 public class User {
     private String account;
     private Song[] history;
-    private boolean isAuthenticated;
     private final RestClient restClient;
+    private boolean isAuthenticated;
     private String access_token;
   
     public User(){
@@ -36,6 +34,14 @@ public class User {
 		this.account = new_account;
         this.restClient = RestClient.create();
 	}
+
+    public void isAuthServerOn() {
+        try (Socket socket = new Socket("localhost", 8080)) {
+            this.isAuthenticated = true;
+        } catch (IOException e) {
+            this.isAuthenticated = false; 
+        }
+    }
 
     public void checkLogin() {
         System.out.println("Checking the login information...");
@@ -53,19 +59,10 @@ public class User {
 
     public void requestAccessToken() {
         TokenResponse token_response = restClient.get()
-            .uri("http://127.0.0.1:3000/auth/get-is-logged")
+            .uri("http://127.0.0.1:3000/auth/get-token")
             .retrieve()
             .body(TokenResponse.class);
         this.access_token = token_response.getAccess_token();
-    }
-
-    public void isAuthServerOn() {
-        // Use a try-with-resources to ensure the socket is closed after testing
-        try (Socket socket = new Socket("localhost", 8080)) {
-            this.isAuthenticated = true; // Connection successful: Port is online
-        } catch (IOException e) {
-            this.isAuthenticated = false; // Connection failed: Port is offline/closed
-        }
     }
 
     public void writePlaylistCSV(Playlist playlist) {

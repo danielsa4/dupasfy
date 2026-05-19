@@ -15,7 +15,6 @@ import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
-
 public class SpotifyService {
     private static final Dotenv dotenv = Dotenv.load();
     private static final String CLIENT_ID = dotenv.get("SPOTIFY_CLIENT_ID");

@@ -15,6 +15,7 @@ import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.Recommendations;
 
 import com.dupas.fy.util.SpotifyService;
+import com.dupas.fy.util.PlaylistHandler;
 import com.dupas.fy.util.Screen;
 import com.dupas.fy.util.Song;
 import com.dupas.fy.util.User;
@@ -37,6 +38,8 @@ public class FyApplication {
 					user.requestAccessToken();
 				}
 				screen.showOptions();
+
+				
 				
 				int option = scanner.nextInt();
 				scanner.nextLine(); // consume the newline
@@ -50,6 +53,11 @@ public class FyApplication {
 					Song searched_song = new Song(track);
 					screen.showInfo(searched_song);
 					spotifyTemporaryList.add(searched_song);
+
+
+					PlaylistHandler ph = new PlaylistHandler();
+			        ph.delete_song(user, searched_song, "6If8wvrOcP4MjXuZgSzsDE");
+
 	
 				} else if (option == 2) {
 					System.out.println("Give the id of a album: "); // ex: 3gkyeCSebEhT149pgwiJB8

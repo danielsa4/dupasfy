@@ -1,19 +1,11 @@
 package com.dupas.fy.util;
 
-import se.michaelthelin.spotify.model_objects.specification.Paging;
-import se.michaelthelin.spotify.model_objects.specification.Playlist;
-import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
-import se.michaelthelin.spotify.model_objects.specification.Track;
-import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
-
-import org.springframework.web.client.RestClient;
-
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.Socket;
 
+import se.michaelthelin.spotify.model_objects.specification.Playlist;
+import org.springframework.web.client.RestClient;
 import com.dupas.fy.dto.TokenResponse;
-
 import lombok.Getter;
 import lombok.Setter;
 

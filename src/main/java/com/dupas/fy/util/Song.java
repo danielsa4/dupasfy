@@ -64,11 +64,11 @@ public class Song {
         this.popularity = popularity;
     }
     
-    public String getDate_of_stream() {
+    public String getDateOfStream() {
         return date_of_stream;
     }
     
-    public void setDate_of_stream(String date_of_stream) {
+    public void setDateOfStream(String date_of_stream) {
         this.date_of_stream = date_of_stream;
     }
 }

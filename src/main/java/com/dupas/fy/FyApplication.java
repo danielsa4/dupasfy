@@ -25,6 +25,7 @@ public class FyApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(FyApplication.class, args);
+
 		Scanner scanner = new Scanner(System.in);
 		User user = new User();
 		Screen screen = new Screen();
@@ -38,8 +39,6 @@ public class FyApplication {
 					user.requestAccessToken();
 				}
 				screen.showOptions();
-
-				
 				
 				int option = scanner.nextInt();
 				scanner.nextLine(); // consume the newline
@@ -53,7 +52,6 @@ public class FyApplication {
 					Song searched_song = new Song(track);
 					screen.showInfo(searched_song);
 					spotifyTemporaryList.add(searched_song);
-
 
 					PlaylistHandler ph = new PlaylistHandler();
 			        ph.delete_song(user, searched_song, "6If8wvrOcP4MjXuZgSzsDE");

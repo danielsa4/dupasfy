@@ -2,8 +2,12 @@ package com.dupas.fy.util;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
-import se.michaelthelin.spotify.model_objects.specification.Playlist;
+import se.michaelthelin.spotify.model_objects.specification.Track;
 import org.springframework.web.client.RestClient;
 import com.dupas.fy.dto.TokenResponse;
 import lombok.Getter;
@@ -57,23 +61,47 @@ public class User {
         this.access_token = token_response.getAccess_token();
     }
 
-    public void writePlaylistCSV(Playlist playlist) {
-    //     try {
-    //         GetPlaylistsItemsRequest request = spotifyApi
-    //                 .getPlaylistsItems(playlistId)
-    //                 .build();
+    public void writePlaylistCSV(Track t) {
+        try {
+            Path outputDir = Paths.get("output");
+            Path filePath = outputDir.resolve("playlist.csv");
 
-    //         Paging<PlaylistTrack> paging = request.execute();
+            // Cria a pasta se não existir
+            Files.createDirectories(outputDir);
 
-    //         for (PlaylistTrack item : paging.getItems()) {
-    //             if (item.getTrack() instanceof Track) {
-    //                 Track track = (Track) item.getTrack();
-    //                 System.out.println(track.getName());
-    //             }
-    //         }
+            // Define o cabeçalho do CSV
+            String header = "filepath,artist,album,title,length,tracktype,state,failurereason\n";
 
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
+            // Se o arquivo não existe, cria e adiciona o cabeçalho
+            if (!Files.exists(filePath)) {
+                Files.write(filePath, header.getBytes(), StandardOpenOption.CREATE_NEW);
+            }
+
+            // Extrai informações do Track
+            String filepath = "";
+            String artist = t.getArtists().length > 0 ? t.getArtists()[0].getName() : "";
+            String album = t.getAlbum() != null ? t.getAlbum().getName() : "";
+            String title = t.getName();
+            long durationMs = t.getDurationMs();
+            long length = durationMs / 1000; // Converte de milissegundos para segundos
+            int tracktype = 0;
+            int state = 2;
+            int failurereason = 3;
+
+            // Cria a linha a ser adicionada
+            String csvLine = String.format(
+                "%s,%s,%s,%s,%d,%d,%d,%d\n",
+                filepath, artist, album, title, length, tracktype, state, failurereason
+            );
+
+            // Adiciona a linha ao arquivo
+            Files.write(filePath, csvLine.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+
+            System.out.println("Track adicionado ao CSV com sucesso: " + title);
+
+        } catch (IOException e) {
+            System.err.println("Erro ao escrever o track no CSV: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

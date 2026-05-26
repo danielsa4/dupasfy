@@ -70,6 +70,7 @@ public class SpotifyService {
     }
 
     public Paging<PlaylistTrack> getPlaylistItems(String playlistId) {
+
         try {
             GetPlaylistsItemsRequest request = spotifyApi
                     .getPlaylistsItems(playlistId)
@@ -77,16 +78,29 @@ public class SpotifyService {
 
             Paging<PlaylistTrack> paging = request.execute();
             // printar os itens no console
-            for (PlaylistTrack item : paging.getItems()) {
-                if (item.getTrack() instanceof Track) {
-                    Track track = (Track) item.getTrack();
-                    System.out.println(track.getName());
-                }
-            }
             return paging;
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        ExecutorService exec = Executors.newFixedThreadPool(10);
+
+        //getItems paralelo -> Não preserva a ordem
+        for (PlaylistTrack item : paging.getItems()) {
+
+            exec.submit(() ->
+                    {
+                        if (item.getTrack() instanceof Track) {
+                            Track track = (Track) item.getTrack();
+                            System.out.println(track.getName());
+                        }
+                    }
+                    );
+
+        }
+
+
+
         return null;
     }
 

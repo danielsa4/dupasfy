@@ -83,21 +83,21 @@ public class SpotifyService {
             e.printStackTrace();
         }
 
-        ExecutorService exec = Executors.newFixedThreadPool(10);
+        // ExecutorService exec = Executors.newFixedThreadPool(10);
 
-        //getItems paralelo -> Não preserva a ordem
-        for (PlaylistTrack item : paging.getItems()) {
+        // //getItems paralelo -> Não preserva a ordem
+        // for (PlaylistTrack item : paging.getItems()) {
 
-            exec.submit(() ->
-                    {
-                        if (item.getTrack() instanceof Track) {
-                            Track track = (Track) item.getTrack();
-                            System.out.println(track.getName());
-                        }
-                    }
-                    );
+        //     exec.submit(() ->
+        //             {
+        //                 if (item.getTrack() instanceof Track) {
+        //                     Track track = (Track) item.getTrack();
+        //                     System.out.println(track.getName());
+        //                 }
+        //             }
+        //             );
 
-        }
+        // }
 
 
 

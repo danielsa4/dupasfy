@@ -32,7 +32,7 @@ public class FyApplication {
 		Screen screen = new Screen();
 		CustomExceptions CustomExceptions = new CustomExceptions();
 		List<Object> spotifyTemporaryList = new ArrayList<>();
-		
+
 		try {
 			user.isAuthServerOn();
 			while (true) {

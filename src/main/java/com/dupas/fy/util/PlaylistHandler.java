@@ -11,14 +11,18 @@ import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.requests.data.playlists.RemoveItemsFromPlaylistRequest;
 
+import com.dupas.fy.util.CheckMethodStatus.IsLogged;
+
 public class PlaylistHandler {
     // Deleta de todas as playlists
 
+    @IsLogged
     void delete_song(Song remove){
 
     }
 
     // Deleta uma musica de 1 playlist
+    @IsLogged
     public void delete_song(User current_user, Song remove, String remove_from){
 
         RemoveItemsFromPlaylistRequest.Builder request_builder = new RemoveItemsFromPlaylistRequest.Builder(current_user.getAccess_token());
@@ -49,36 +53,39 @@ public class PlaylistHandler {
     }
 
     // Deleta uma musica de x playlists
+    @IsLogged
     void delete_song(User current_user, Song remove, Playlist[] remove_from){
 
-        ExecutoService exec = Executors.newFixedThreadPool(5);
+        // ExecutoService exec = Executors.newFixedThreadPool(5);
 
-        for(Playlist playlist : remove_from){
-            exec.submit(() ->
-            {
-                delete_song(current_user,remove,playlist.getId());
-            });
-        }
-        exec.shutdown();
+        // for(Playlist playlist : remove_from){
+        //     exec.submit(() ->
+        //     {
+        //         delete_song(current_user,remove,playlist.getId());
+        //     });
+        // }
+        // exec.shutdown();
 
     }
 
     // Deleta de uma playlist todas as músicas de um determinado artista.
+    @IsLogged
     void delete_artist(User current_user, Playlist playlist , ArtistSimplified remove){
 
     }
 
     //Deleta de múltiplas playlists todas as músicas de um deteminado artista.
+    @IsLogged
     void delete_artist(User current_user, ArtistSimplified remove, Playlist[] remove_from){
 
-        ExecutoService exec = Executors.newFixedThreadPool(5);
+        // ExecutoService exec = Executors.newFixedThreadPool(5);
 
-        for(Playlist playlist : remove_from){
-            exec.submit(() ->
-            {
-                delete_artist(current_user,playlist,remove);
-            });
-        }
-        exec.shutdown();
+        // for(Playlist playlist : remove_from){
+        //     exec.submit(() ->
+        //     {
+        //         delete_artist(current_user,playlist,remove);
+        //     });
+        // }
+        // exec.shutdown();
     }
 }

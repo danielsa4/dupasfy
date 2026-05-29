@@ -20,6 +20,7 @@ public class Screen {
         System.out.println("5. Show searched items");
         System.out.println("6. Append to csv");
         System.out.println("7. Exit");
+        
     }
 
     public <T> void showInfo(T spotifyObject) {

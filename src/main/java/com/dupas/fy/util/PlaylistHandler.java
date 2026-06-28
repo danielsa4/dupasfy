@@ -56,15 +56,15 @@ public class PlaylistHandler {
     @IsLogged
     void delete_song(User current_user, Song remove, Playlist[] remove_from){
 
-        // ExecutoService exec = Executors.newFixedThreadPool(5);
+        ExecutoService exec = Executors.newFixedThreadPool(5);
 
-        // for(Playlist playlist : remove_from){
-        //     exec.submit(() ->
-        //     {
-        //         delete_song(current_user,remove,playlist.getId());
-        //     });
-        // }
-        // exec.shutdown();
+         for(Playlist playlist : remove_from){
+             exec.submit(() ->
+             {
+                 delete_song(current_user,remove,playlist.getId());
+             });
+         }
+         exec.shutdown();
 
     }
 
@@ -78,14 +78,14 @@ public class PlaylistHandler {
     @IsLogged
     void delete_artist(User current_user, ArtistSimplified remove, Playlist[] remove_from){
 
-        // ExecutoService exec = Executors.newFixedThreadPool(5);
+         ExecutoService exec = Executors.newFixedThreadPool(5);
 
-        // for(Playlist playlist : remove_from){
-        //     exec.submit(() ->
-        //     {
-        //         delete_artist(current_user,playlist,remove);
-        //     });
-        // }
-        // exec.shutdown();
+         for(Playlist playlist : remove_from){
+             exec.submit(() ->
+             {
+                 delete_artist(current_user,playlist,remove);
+             });
+         }
+         exec.shutdown();
     }
 }

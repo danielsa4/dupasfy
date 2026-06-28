@@ -17,7 +17,7 @@ load_dotenv()
 client_id = os.getenv("SPOTIFY_CLIENT_ID")
 client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
 redirect_uri = 'http://127.0.0.1:8080/callback'
-scope = ['playlist-read-private', 'playlist-modify-public']
+scope = ['playlist-read-private', 'playlist-modify-public','playlist-read-public','playlist-modify-public']
 
 # cache_handler = FlaskSessionCacheHandler(session)
 cache_handler = CacheFileHandler(cache_path=".spotifycache")

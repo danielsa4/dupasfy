@@ -1,0 +1,18 @@
+.func_button{
+
+}
+
+.func_form{
+    
+}
+
+.all-funcs{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-color: black;
+   border-width: 10px;
+   color: gray;
+}

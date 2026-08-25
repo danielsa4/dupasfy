@@ -3,7 +3,7 @@
 # <venv>\Scripts\activate.bat, para ativar o windows
 # pip install -r requirements.txt para as dependências
 import os
-
+from flask import render_template
 from flask import Flask, session, url_for, redirect, request
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
@@ -17,7 +17,7 @@ load_dotenv()
 client_id = os.getenv("SPOTIFY_CLIENT_ID")
 client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
 redirect_uri = 'http://127.0.0.1:8080/callback'
-scope = ['playlist-read-private', 'playlist-modify-public','playlist-read-public','playlist-modify-public']
+scope = ['playlist-read-private', 'playlist-modify-public', 'playlist-modify-private']
 
 # cache_handler = FlaskSessionCacheHandler(session)
 cache_handler = CacheFileHandler(cache_path=".spotifycache")
@@ -38,8 +38,9 @@ def home():
     if not sp_oauth.validate_token(cache_handler.get_cached_token()):
         auth_url = sp_oauth.get_authorize_url()
         return redirect(auth_url)
-    return redirect(url_for('get_playlists'))
-
+    #return redirect(url_for('get_playlists'))
+    playlists = sp.current_user_playlists()
+    return render_template("index.html", person=playlists["items"][0]["name"])
 @app.route('/callback')
 def callback():
     sp_oauth.get_access_token(request.args['code'])

@@ -1,25 +1,18 @@
 package com.dupas.fy;
 
-import java.util.Scanner;
-import java.util.List;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-import org.apache.hc.core5.http.ParseException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
-import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
-import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
-import se.michaelthelin.spotify.model_objects.specification.Recommendations;
-
-import com.dupas.fy.util.SpotifyService;
+import com.dupas.fy.util.CustomExceptions;
 import com.dupas.fy.util.PlaylistHandler;
 import com.dupas.fy.util.Screen;
 import com.dupas.fy.util.Song;
+import com.dupas.fy.util.SpotifyService;
 import com.dupas.fy.util.User;
-import com.dupas.fy.util.CustomExceptions;
 
 @SpringBootApplication
 public class FyApplication {
@@ -47,7 +40,7 @@ public class FyApplication {
 				SpotifyService service = new SpotifyService();
 					
 				if (option == 1) {
-					System.out.println("Give the id of a song: "); // ex: 5sxyNRAlsVwxOOQrXgs5kF
+					System.out.println("Give the id of a song: "); // ex: 1tApKPSsMXfJf528fR1o93
 					String id_option = scanner.nextLine();
 					System.out.println("Searching for a song...");
 					CustomExceptions.checkIdException(id_option);

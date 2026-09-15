@@ -35,16 +35,26 @@ sp = Spotify(auth_manager=sp_oauth)
 
 @app.route('/')
 def home():
+    logged_status = is_logged()['logged']
+    #is_logged_boolean = is_logged.logged
+    return render_template("index.html", logged_status=logged_status)
+
+@app.route('/login')
+def login():
     if not sp_oauth.validate_token(cache_handler.get_cached_token()):
-        auth_url = sp_oauth.get_authorize_url()
-        return redirect(auth_url)
-    #return redirect(url_for('get_playlists'))
-    playlists = sp.current_user_playlists()
-    return render_template("index.html", person=playlists["items"][0]["name"])
+            auth_url = sp_oauth.get_authorize_url()
+            return redirect(auth_url)
+    return redirect(url_for('home'))
+
+@app.route('/sobre')
+def sobre():
+    return render_template("sobre.html")
+    
+
 @app.route('/callback')
 def callback():
     sp_oauth.get_access_token(request.args['code'])
-    return redirect(url_for('get_playlists'))
+    return redirect(url_for('home'))
 
 @app.route('/get_token')
 def get_token():
@@ -89,6 +99,9 @@ def get_playlists():
 @app.route('/logout')
 def logout():
     session.clear()
+    cache_file = '.spotifycache'
+    if os.path.exists(cache_file):
+        os.remove(cache_file)
     return redirect(url_for('home'))
 
 if __name__ == '__main__':

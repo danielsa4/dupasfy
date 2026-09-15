@@ -1,7 +1,32 @@
-document.getElementById("func_form").style.display ="none";
+const functionBlocks = document.querySelectorAll(".div-func");
 
-function openTest() {
-    document.getElementById("func_form").style.display = "";
-}
+functionBlocks.forEach((functionBlock) => {
+    const button = functionBlock.querySelector(".func_button");
+    const form = functionBlock.querySelector(".func_form");
 
-document.getElementById('func-button').addEventListener('click', openTest);
+    form.style.display = "none";
+
+    button.addEventListener("click", () => {
+        form.style.display = form.style.display === "none" ? "" : "none";
+    });
+    
+});
+
+const functionsSection = document.querySelector(".all-funcs");
+
+const observer = new IntersectionObserver(
+    (entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    },
+    {
+        threshold: 0.15
+    }
+);
+
+observer.observe(functionsSection);
+

@@ -1,14 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Caacupe+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caacupe+One&family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
-  --color-background:#6d80fa ;
+  --color-background:#4878bb;
   --color-highlights: #c6e5da;
-  --color-boxes: #8465ec;
+  --color-boxes: #1a2d4f;
   --color-dark: #1f102a;
-  --color-main: #ee8fcb;
+  --color-main: #ffcee5;
   --color-idk: #5f1a37;
 
 
+}
+
+html{
+    scroll-behavior: smooth;
+  font-size: 100%;
 }
 
 * {
@@ -17,12 +24,18 @@
 
 
 body{
+    min-height: 100vh;
     margin: 0;
     overflow-x: hidden;
-    background-image: linear-gradient(to bottom, 
-                                      var(--color-background), 
-                                      var(--color-dark));
+    background-color: var(--color-background);
+    background-image: url("../static/background-dupas.png");
+    background-repeat: repeat-y;
+    background-position: top center;
+    background-size: 100% auto;
 
+}
+body:disabled {
+    opacity: 0.5;
 }
 
 
@@ -32,35 +45,28 @@ nav{
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(from var(--color-dark) r g b / 0.5);
+  /*background-color: rgb(from var(--color-dark) r g b / 0.5);*/
   width: 100%;
-  height: 50px;
-  color: var(--color-highlights);
-  
-   border-bottom-style: solid;
-    border-color: color-mix(
-    in srgb,
-    var(--color-highlights) 100%,
-    white
-  );
-    border-width: 0.3dvh;
-    padding: 10px;
+  min-height: 72px;
+  color: var(--color-main);
+  padding: 12px 24px;
 
-    top: 0;
+  top: 0;
   z-index: 1000;
+  font-family: "Poppins", sans-serif;
 }
 
 .nav-items{
   display: flex;
   flex-direction: row;
-  gap: 25px;
+  gap: 36px;
 }
 
 
 
 p{
-  font-family: 'Caacupe One', sans-serif;
-  font-size: medium;
+  font-family: 'Oswald', sans-serif;
+  font-size: 2rem;
 }
 
 a,
@@ -81,7 +87,7 @@ a:active {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 5rem 2rem 3rem;
 }
 
 @keyframes slide-up {
@@ -98,45 +104,68 @@ a:active {
 
 
 h1{
-    font-size: clamp(2.2rem, 8vw, 6rem);
-    margin: 0.5rem;
-    font-family: 'Caacupe One', sans-serif;
+  font-size: clamp(4rem, 10vw, 10.5rem);
+  margin: 1rem;
+    font-family: 'Oswald', sans-serif;
     color: var(--color-main);
-    text-shadow: 5px 5px 5px var(--color-dark);
 }
 
 h2{
-    font-size: clamp(1.4rem, 5vw, 4rem);
-    margin: 0.5rem;
-    font-family: 'Caacupe One', sans-serif;
+  font-size: clamp(2.25rem, 6vw, 7rem);
+  margin: 1rem;
+    font-family: 'Oswald', sans-serif;
     color: color-mix(
         in srgb, var(--color-main) 90%,
         white
     );
-    text-shadow: 4px 4px 4px var(--color-dark);
     
 
 }
 
+h3{
+  font-size: clamp(1.35rem, 2.5vw, 3rem);
+    margin: 1rem;
+    font-family: 'Oswald', sans-serif;
+    color: color-mix(
+        in srgb, var(--color-main) 90%,
+        white
+    );
+
+}
+h4{
+  color:red;
+  font-size: clamp(1rem, 3vw, 1.75rem);
+}
+
 .img-arrow{
-    width: clamp(1.4rem, 5vw, 4rem);
+  width: clamp(2.5rem, 6vw, 6rem);
     height: auto;
     transform: rotate(180deg);
-    filter: invert(93%) sepia(90%) saturate(7429%) hue-rotate(281deg) brightness(94%) contrast(99%);
+    filter: brightness(0) saturate(100%) invert(98%) sepia(53%) saturate(1898%) hue-rotate(285deg) brightness(112%) contrast(101%);
+
 }
 
 
 
 
 .func_button{
-    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
     color: var(--color-dark);
     background-color: var(--color-main);
     border-style: initial;
     border-radius: 1vh;
     transition-duration: 0.4s;
-    width: 10em;
-    padding: 0.5em;
+    width: 100%;
+    min-height: 0;
+    padding: 1rem 1.25rem;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+.func_button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 .func_button:hover{
     color: var(--color-highlights);
@@ -145,19 +174,67 @@ h2{
 }
 
 .func_form{
-    width: 10em;
-    animation: slide-up 1s;
+    /*animation: slide-up 1s;*/
     color: var(--color-main);
     font-family: 'Oswald', sans-serif;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+    height: auto;
+    max-height: calc(100svh - 2rem);
+    width: min(50rem, calc(100vw - 2rem));
+    overflow-y: auto;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    padding: clamp(1.25rem, 5vw, 3rem);
+    background-color: var(--color-boxes);
+    border: 2px solid var(--color-highlights);
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 40%);
+}
+
+.func_form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.func_form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  overflow-wrap: anywhere;
+}
+
+.func_form input[type="text"] {
+  width: 100%;
+  min-width: 0;
+  padding: 0.75rem;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+}
+
+.func_form input[type="submit"] {
+  padding: 0.75rem 1.25rem;
+  width: min(100%, 8rem);
+  font-size: clamp(1rem, 3vw, 1.5rem);
+}
+
+
+.func_form.active {
+    display: block;
 }
 
 .div-func{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: min(100%, 320px);
-    padding: 2rem;
-    background-color: var(--color-boxes);
+    width: 100%;
+    min-height: 0;
+    padding: 1.5rem;
+    background-color: rgb(from var(--color-boxes) r g b / 0.5);
     border-style: solid;
     border-color: color-mix(
     in srgb,
@@ -174,28 +251,90 @@ h2{
 }
 
 .all-funcs{
-    flex-wrap: wrap;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    gap: 20px;
-    opacity: 0;
+    min-height: 90svh;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 6rem 8rem 8rem;
+    gap: 2rem;
+    /*opacity: 0;
     transform: translateY(30px);
+    */
 }
-
+/*
 .all-funcs.is-visible {
   animation: slide-up 1s forwards;
 }
+  */
+
+.devs-all{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.5rem, 6vw, 6rem);
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.devs-all > div {
+  flex: 1 1 14rem;
+  min-width: 0;
+  max-width: 20rem;
+  text-align: center;
+}
+
+.devs-all img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}  
 
 @media (max-width: 600px) {
+  nav {
+    align-items: flex-start;
+    padding: 0.75rem 1rem;
+  }
+
+  nav p {
+    margin: 0.25rem 0;
+    font-size: 1.75rem;
+  }
+
+  .nav-items {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .main-text {
+    padding: 6rem 1rem 3rem;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 16vw, 5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 9vw, 3rem);
+  }
   .all-funcs {
-    flex-direction: row;
-    align-items: stretch;
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1rem;
   }
 
   .div-func {
     width: 100%;
+    padding: 1rem;
+  }
+  .func_button {
+    font-size: 1rem;
+    padding: 0.875rem 1rem;
+  }
+  body {
+    background-size: 100vw auto;
+    background-position: top center;
+    background-repeat: repeat-y;
   }
 }

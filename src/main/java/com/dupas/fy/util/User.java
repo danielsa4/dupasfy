@@ -9,6 +9,8 @@ import java.nio.file.StandardOpenOption;
 
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import org.springframework.web.client.RestClient;
+
+import com.dupas.fy.dto.StringCSVConverter;
 import com.dupas.fy.dto.TokenResponse;
 import lombok.Getter;
 import lombok.Setter;
@@ -93,6 +95,8 @@ public class User {
                 "%s,%s,%s,%s,%d,%d,%d,%d\n",
                 filepath, artist, album, title, length, tracktype, state, failurereason
             );
+
+            csvLine = StringCSVConverter.converter(csvLine);
 
             // Adiciona a linha ao arquivo
             Files.write(filePath, csvLine.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
